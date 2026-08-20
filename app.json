@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "CareMate",
+    "slug": "caremate",
+    "version": "2.0.0",
+    "scheme": "caremate",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#1E88E9",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.caremate.app"
+    },
+    "android": {
+      "package": "com.caremate.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#1E88E9"
+      }
+    },
+    "plugins": ["expo-router", "expo-font"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
