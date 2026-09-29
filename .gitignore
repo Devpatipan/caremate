@@ -13,3 +13,5 @@ expo-env.d.ts
 .env*.local
 "_src_verify.tgz" 
 "supabase/.temp/" 
+"_src_verify.tgz" 
+"supabase/.temp/" 

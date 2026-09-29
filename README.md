@@ -29,6 +29,32 @@ CareMate แก้ปัญหานี้ด้วย **แอปมือถ�
 
 ---
 
+## บอร์ดกล่องเตือนทานยา
+
+![CareMate Smart Health Board](docs/board-spec.png)
+
+## หน้าจอแอป
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/login.png" width="220"><br><sub>เข้าสู่ระบบ</sub></td>
+    <td align="center"><img src="docs/screenshots/onboarding.png" width="220"><br><sub>เริ่มใช้งานครั้งแรก · PDPA</sub></td>
+    <td align="center"><img src="docs/screenshots/home.png" width="220"><br><sub>หน้าหลัก</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/meds.png" width="220"><br><sub>ยาและการเตือน</sub></td>
+    <td align="center"><img src="docs/screenshots/device.png" width="220"><br><sub>อุปกรณ์ (หลายกล่อง)</sub></td>
+    <td align="center"><img src="docs/screenshots/health-bp.png" width="220"><br><sub>สุขภาพ · ความดัน</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/health-sugar.png" width="220"><br><sub>สุขภาพ · น้ำตาล</sub></td>
+    <td align="center"><img src="docs/screenshots/more.png" width="220"><br><sub>เพิ่มเติม · ตั้งค่า</sub></td>
+    <td></td>
+  </tr>
+</table>
+
+---
+
 ## ฟีเจอร์หลัก
 
 **ยาและการเตือน**
