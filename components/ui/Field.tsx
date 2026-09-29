@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, TextInputProps, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from '../../theme/ThemeProvider';
-import { typography } from '../../theme/tokens';
+import { familyForWeight } from '../../theme/fonts';
 import { Text } from './Text';
 
 export type FieldProps = TextInputProps & {
@@ -34,8 +34,9 @@ export function Field({ label, hint, containerStyle, style, ...rest }: FieldProp
         {...rest}
         style={[
           {
-            fontFamily: typography.family.regular,
+            fontFamily: familyForWeight('400'),
             fontSize: 15,
+            lineHeight: 22,
             color: t.colors.ink,
             backgroundColor: t.colors.surface2,
             borderWidth: 1.5,

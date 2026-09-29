@@ -1,26 +1,26 @@
 /**
- * Font configuration.
+ * Font configuration — CareMate
  *
- * The design uses **LINE Seed Sans TH**. To enable it:
- *  1. Drop the .ttf files into `assets/fonts/`:
- *       LINESeedSansTH-Regular.ttf, LINESeedSansTH-Medium.ttf, LINESeedSansTH-Bold.ttf
- *  2. Uncomment the `useFonts` block in `app/_layout.tsx`.
- *  3. Set `FONTS_ENABLED = true` below.
+ * ใช้ LINE Seed Sans TH (ฟอนต์ทางการของ LINE — ฟรี ใช้เชิงพาณิชย์ได้)
+ * ไฟล์ .ttf อยู่ใน assets/fonts/ โหลดใน app/_layout.tsx
  *
- * Until then the app runs on the system font (which renders Thai correctly
- * on both iOS and Android), so nothing crashes if the files are missing.
+ * น้ำหนักที่ LINE Seed มี: Thin / Regular / Bold / ExtraBold / Heavy
+ * แมปกับ weight ในแอป:
+ *   400,500 -> Regular   |   600 -> Bold   |   700 -> ExtraBold
  */
-export const FONTS_ENABLED = false;
+export const FONTS_ENABLED = true;
 
 export const fontFamilies = {
   regular: 'LINESeedSansTH-Regular',
-  medium: 'LINESeedSansTH-Medium',
-  bold: 'LINESeedSansTH-Bold',
+  medium: 'LINESeedSansTH-Regular',
+  semibold: 'LINESeedSansTH-Bold',
+  bold: 'LINESeedSansTH-ExtraBold',
 } as const;
 
 export function familyForWeight(weight?: string): string | undefined {
   if (!FONTS_ENABLED) return undefined; // system font
   if (weight === '700') return fontFamilies.bold;
-  if (weight === '600' || weight === '500') return fontFamilies.medium;
+  if (weight === '600') return fontFamilies.semibold;
+  if (weight === '500') return fontFamilies.medium;
   return fontFamilies.regular;
 }

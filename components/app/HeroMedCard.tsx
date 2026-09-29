@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Clock } from 'lucide-react-native';
+import { Clock, ShieldCheck } from 'lucide-react-native';
 import { useTheme } from '../../theme/ThemeProvider';
 import { Text, MedRing } from '../ui';
 
@@ -19,19 +19,21 @@ export function HeroMedCard({ taken, total, nextDose }: HeroMedCardProps) {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 18,
-        backgroundColor: t.blue[700],
+        backgroundColor: t.colors.primaryStrong,
         borderRadius: t.radius.xl,
         padding: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.18)',
         ...t.shadows.e2,
       }}
     >
       <MedRing taken={taken} total={total} />
       <View style={{ flex: 1 }}>
         <Text variant="caption" style={{ color: '#FFFFFF', opacity: 0.85 }}>
-          การทานยาวันนี้
+          สรุปการดูแลวันนี้
         </Text>
         <Text variant="title" weight="700" style={{ color: '#FFFFFF', marginTop: 3, marginBottom: 8 }}>
-          {done ? 'ครบแล้ววันนี้ 🎉' : `ทานแล้ว ${taken} มื้อ 👍`}
+          {done ? 'ทานยาครบแล้ววันนี้' : `ทานยาแล้ว ${taken} จาก ${total} มื้อ`}
         </Text>
         {nextDose ? (
           <View
@@ -51,7 +53,25 @@ export function HeroMedCard({ taken, total, nextDose }: HeroMedCardProps) {
               มื้อถัดไป {nextDose.time} · {nextDose.name}
             </Text>
           </View>
-        ) : null}
+        ) : (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 7,
+              alignSelf: 'flex-start',
+              backgroundColor: 'rgba(255,255,255,0.16)',
+              paddingVertical: 6,
+              paddingHorizontal: 11,
+              borderRadius: t.radius.pill,
+            }}
+          >
+            <ShieldCheck size={14} color="#FFFFFF" strokeWidth={2.2} />
+            <Text variant="caption" weight="600" style={{ color: '#FFFFFF' }}>
+              ไม่มีมื้อยาที่รออยู่
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

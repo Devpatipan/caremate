@@ -4,10 +4,14 @@ import { Home, Pill, Activity, Tablet, MoreHorizontal } from 'lucide-react-nativ
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/ThemeProvider';
 import { FONTS_ENABLED, fontFamilies } from '../../theme/fonts';
+import { useCurrentPatient } from '../../lib/patient-context';
+import { useRealtimeSync } from '../../lib/realtime';
 
 export default function TabsLayout() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
+  const { currentPatientId } = useCurrentPatient();
+  useRealtimeSync(currentPatientId);   // อัปเดตสดจากคลาวด์
 
   return (
     <Tabs

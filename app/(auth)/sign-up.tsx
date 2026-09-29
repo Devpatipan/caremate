@@ -9,6 +9,10 @@ import { useAuth } from '../../lib/auth';
 import { Text } from '../../components/ui/Text';
 import { Field } from '../../components/ui/Field';
 import { Button } from '../../components/ui/Button';
+import { SegmentedControl } from '../../components/ui/SegmentedControl';
+import { Captcha } from '../../components/ui/Captcha';
+
+type Prefix = 'นาย' | 'นาง' | 'นางสาว';
 
 export default function SignUp() {
   const t = useTheme();
@@ -17,9 +21,11 @@ export default function SignUp() {
   const router = useRouter();
   const { signUp } = useAuth();
 
+  const [prefix, setPrefix] = useState<Prefix>('นาย');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [captchaOk, setCaptchaOk] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -35,9 +41,13 @@ export default function SignUp() {
       setError('รหัสผ่านอย่างน้อย 6 ตัวอักษร');
       return;
     }
+    if (!captchaOk) {
+      setError('กรุณายืนยันว่าไม่ใช่บอทก่อน');
+      return;
+    }
     setBusy(true);
     try {
-      await signUp(email.trim(), password, name.trim());
+      await signUp(email.trim(), password, `${prefix} ${name.trim()}`);
       setNotice('สมัครสำเร็จ! หากเปิด Confirm email ให้ยืนยันในอีเมลก่อนเข้าสู่ระบบ');
     } catch (e: any) {
       setError(mapError(e?.message));
@@ -55,19 +65,13 @@ export default function SignUp() {
             flexGrow: 1,
             justifyContent: 'center',
             paddingHorizontal: 24,
-            paddingTop: insets.top + 16,
+            paddingTop: insets.top + 64,
             paddingBottom: insets.bottom + 24,
           }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View
-            style={{
-              position: 'absolute',
-              top: insets.top + 8,
-              left: 16,
-            }}
-          >
+          <View style={{ position: 'absolute', top: insets.top + 8, left: 12 }}>
             <Button
               label="กลับ"
               variant="ghost"
@@ -77,14 +81,30 @@ export default function SignUp() {
             />
           </View>
 
-          <Text variant="display" weight="700" style={{ marginBottom: 4 }}>
+          <Text variant="display" weight="700" style={{ marginBottom: 6 }}>
             สร้างบัญชีผู้ดูแล
           </Text>
           <Text variant="body" color="ink3" style={{ marginBottom: 22 }}>
             สำหรับลูกหลาน/ผู้ดูแล เพื่อติดตามการทานยาและสุขภาพ
           </Text>
 
-          <Field label="ชื่อ-นามสกุล" placeholder="เช่น ปนิธาน ใจดี" value={name} onChangeText={setName} />
+          {/* คำนำหน้า */}
+          <Text variant="caption" weight="600" color="ink2" style={{ marginBottom: 6 }}>
+            คำนำหน้า
+          </Text>
+          <View style={{ marginBottom: 14 }}>
+            <SegmentedControl
+              value={prefix}
+              onChange={(v) => setPrefix(v as Prefix)}
+              options={[
+                { value: 'นาย', label: 'นาย' },
+                { value: 'นาง', label: 'นาง' },
+                { value: 'นางสาว', label: 'นางสาว' },
+              ]}
+            />
+          </View>
+
+          <Field label="ชื่อ-นามสกุล" placeholder="เช่น ปฏิภาณ เรืองยงค์" value={name} onChangeText={setName} />
           <Field
             label="อีเมล"
             placeholder="you@example.com"
@@ -102,6 +122,9 @@ export default function SignUp() {
             onChangeText={setPassword}
           />
 
+          {/* มินิเกมยืนยันไม่ใช่บอท */}
+          <Captcha onChange={setCaptchaOk} />
+
           {error ? (
             <View style={{ backgroundColor: t.colors.dangerSoft, borderRadius: t.radius.md, padding: 12, marginBottom: 12 }}>
               <Text variant="caption" weight="600" style={{ color: t.colors.dangerInk }}>{error}</Text>
@@ -113,7 +136,7 @@ export default function SignUp() {
             </View>
           ) : null}
 
-          <Button label="สมัครสมาชิก" block loading={busy} onPress={onSubmit} />
+          <Button label="สมัครสมาชิก" block loading={busy} disabled={!captchaOk} onPress={onSubmit} />
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 18, gap: 6 }}>
             <Text variant="body" color="ink3">มีบัญชีแล้ว?</Text>
@@ -129,8 +152,9 @@ export default function SignUp() {
 
 function mapError(msg?: string): string {
   if (!msg) return 'สมัครไม่สำเร็จ ลองใหม่อีกครั้ง';
-  if (/already registered|already exists/i.test(msg)) return 'อีเมลนี้ถูกใช้แล้ว';
+  if (/already registered|already exists|user already/i.test(msg)) return 'อีเมลนี้ถูกใช้แล้ว';
   if (/password/i.test(msg)) return 'รหัสผ่านไม่ผ่านเกณฑ์ (อย่างน้อย 6 ตัว)';
-  if (/network/i.test(msg)) return 'เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ต';
+  if (/invalid path/i.test(msg)) return 'ตั้งค่า SUPABASE_URL ไม่ถูกต้อง (ต้องเป็นโดเมนเปล่า ไม่มี /rest/v1)';
+  if (/network|fetch/i.test(msg)) return 'เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ต';
   return msg;
 }

@@ -59,7 +59,7 @@ export function StatTile({
         </Text>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 3, marginTop: 6 }}>
-        <Text variant="h1" weight="700" style={{ letterSpacing: -0.5 }}>
+        <Text variant="h1" weight="700" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.72}>
           {value}
         </Text>
         {unit ? (

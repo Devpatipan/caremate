@@ -44,23 +44,24 @@ export const radius = {
   pill: 999,
 } as const;
 
-/** Type scale. Font family is applied globally via ThemeProvider. */
+/**
+ * Type scale. Font family applied globally via ThemeProvider/fonts.ts.
+ * lineHeight เผื่อไว้สำหรับภาษาไทย (สระ/วรรณยุกต์บน-ล่าง) ≈ 1.35–1.5×
+ */
 export const typography = {
   family: {
-    // LINE Seed Sans TH is loaded in app/_layout via expo-font.
-    regular: 'LINESeedSansTH-Regular',
-    medium: 'LINESeedSansTH-Medium',
-    bold: 'LINESeedSansTH-Bold',
+    regular: 'IBMPlexSansThai_400Regular',
+    medium: 'IBMPlexSansThai_500Medium',
+    bold: 'IBMPlexSansThai_700Bold',
   },
-  // size / lineHeight / weight
-  display: { fontSize: 30, lineHeight: 34, weight: '700' as const },
-  h1: { fontSize: 22, lineHeight: 28, weight: '700' as const },
-  h2: { fontSize: 18, lineHeight: 24, weight: '700' as const },
-  title: { fontSize: 16, lineHeight: 22, weight: '700' as const },
-  body: { fontSize: 15, lineHeight: 22, weight: '400' as const },
-  bodyStrong: { fontSize: 15, lineHeight: 22, weight: '600' as const },
-  caption: { fontSize: 12.5, lineHeight: 18, weight: '500' as const },
-  micro: { fontSize: 10.5, lineHeight: 14, weight: '600' as const },
+  display: { fontSize: 30, lineHeight: 42, weight: '700' as const },
+  h1: { fontSize: 22, lineHeight: 32, weight: '700' as const },
+  h2: { fontSize: 18, lineHeight: 27, weight: '700' as const },
+  title: { fontSize: 16, lineHeight: 24, weight: '700' as const },
+  body: { fontSize: 15, lineHeight: 23, weight: '400' as const },
+  bodyStrong: { fontSize: 15, lineHeight: 23, weight: '600' as const },
+  caption: { fontSize: 12.5, lineHeight: 19, weight: '500' as const },
+  micro: { fontSize: 10.5, lineHeight: 16, weight: '600' as const },
 } as const;
 
 /** Minimum hit target for any tappable element. */
