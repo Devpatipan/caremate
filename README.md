@@ -145,7 +145,7 @@ firmware/       # kidbright/ — main.py (MicroPython) + คู่มือ flas
 
 ```bash
 # 1) ติดตั้ง
-git clone https://github.com/devpanitan/caremate.git
+git clone https://github.com/Devpatipan/caremate.git
 cd caremate
 npm install
 
